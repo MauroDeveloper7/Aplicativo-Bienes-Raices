@@ -1,0 +1,14 @@
+extends ../layout/index
+
+block content
+    .py-5
+        h1.text-center.text-5xl.my-5.font-extrabold.text-white(class="font-sans md:font-serif") Bienes
+            span.font-normal Raíces
+        h2.text-center.text-3xl.font-extrabold.text-white(class="font-sans md:font-serif")= pagina
+
+        .mt-8.mx-auto.max-w-lg
+            .py-8.px-6.shadow-md.rounded-lg(class="bg-white")
+                p(class= error ? 'bg-red-500' : 'bg-green-500').py-2.px-5.rounded-lg.w-full.font-bold.text-center.text-while.uppercase= mensaje
+
+                if !error
+                    a(href="/auth/login" class="text-center font-bold text-sm text-slate-600 uppercase mt-10 block") Ya puedes iniciar sesión
