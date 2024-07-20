@@ -1,8 +1,6 @@
 import { validationResult } from "express-validator";
 import {Precio, Categoria, Propiedad } from "../models/index.js";
 
-
-
 const admin = async (req, res) => {
     
     const {id} = req.usuario;
@@ -23,8 +21,6 @@ const admin = async (req, res) => {
     })
 }
 
-// Formulario para crear una propiedad
-
 const crear = async (req,res)=>{
     const[categorias,precios] = await Promise.all([
         Categoria.findAll(),
@@ -39,7 +35,6 @@ const crear = async (req,res)=>{
     })
     console.log(req.body);
 }
-
 
 const guardar = async (req, res) =>{
     //Validación
@@ -88,8 +83,6 @@ const guardar = async (req, res) =>{
         console.log(error)
     }
 }
-
-
 
 const agregaImagen = async (req, res) => {
     const { id } = req.params;
@@ -141,7 +134,6 @@ const almacenarImagen = async (req, res) => {
     }
 }
 
-
 const editar = async (req,res) =>{
     
     const { id } = req.params;
@@ -165,9 +157,6 @@ const editar = async (req,res) =>{
         datos:propiedad
     })
 }
-
-
-
 
 const guardarCambios = async (req, res) =>{
     console.log('Guardando los cambios')
@@ -222,8 +211,6 @@ const guardarCambios = async (req, res) =>{
 const eliminar = async (req, res)=>{
     console.log('Eliminandoooooo.....')
 }
-
-
 
 export {
     admin,

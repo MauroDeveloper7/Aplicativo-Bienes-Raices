@@ -143,7 +143,6 @@ const registrar = async (req, res) => {
 
 };
 
-//Función que permite confirmar la cuenta
 const confirmar = async (req, res) => {
     const { token } = req.params;
 
@@ -183,7 +182,6 @@ const recuperaPassword = (req, res) => {
         csrfToken: req.csrfToken
     })
 };
-
 
 const resetPassword = async (req, res) => {
     await check('email').isEmail().withMessage('El C. Electrónico ingresado no tiene formato de correo!').run(req);
@@ -257,6 +255,7 @@ const comprobarToken = async (req, res) => {
     })
 
 }
+
 const nuevoPassword = async (req, res) => {
 
     //validar password
@@ -291,7 +290,6 @@ const nuevoPassword = async (req, res) => {
 
     })
 }
-
 
 const Sesion = (req, res) => {
 	return res.clearCookie("_token").status(200).redirect("/auth/login");
