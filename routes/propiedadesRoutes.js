@@ -1,6 +1,6 @@
 import express from 'express';
 import { body } from 'express-validator';
-import { admin, crear, guardar, guardarimagen, almacenarImagen,guardarCambios,editar, eliminar } from '../controllers/propiedadController.js'
+import { admin, crear, guardar, agregaImagen, almacenarImagen,guardarCambios,editar, eliminar } from '../controllers/propiedadController.js'
 import protegerRuta from '../milddleware/protegerRuta.js';
 import upload from '../milddleware/subirImagen.js';
 
@@ -24,16 +24,10 @@ router.post('/propiedades/crear',
 );
 
 
-router.get('/propiedades/agregarImagen/:id',
-protegerRuta,
-guardarimagen
-);
+router.get('/propiedades/agregarImagen/:id', protegerRuta, agregaImagen);
 
-router.post('/propiedades/agregarImagen/:id',
-    protegerRuta,
-    upload.single('imagen'),
-    almacenarImagen
-)
+router.post('/propiedades/agregarImagen/:id', protegerRuta, upload.single('imagen'), almacenarImagen);
+
 router.get('/propiedades/editar/:id',
     protegerRuta,
     editar
