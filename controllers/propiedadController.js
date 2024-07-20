@@ -1,3 +1,4 @@
+import { unlink } from 'node:fs/promises';
 import { validationResult } from "express-validator";
 import {Precio, Categoria, Propiedad } from "../models/index.js";
 
@@ -17,7 +18,7 @@ const admin = async (req, res) => {
     res.render('propiedades/admin', {
         title: 'Mis propiedades',
         propiedades,
-        csrfToken:req.csrfToken
+        csrfToken:req.csrfToken()
     })
 }
 
@@ -137,7 +138,9 @@ const almacenarImagen = async (req, res) => {
 const editar = async (req,res) =>{
     
     const { id } = req.params;
+
     const propiedad = await Propiedad.findByPk(id);
+
     if(!propiedad){
         return res.redirect('/mispropiedades')
     }
@@ -160,7 +163,9 @@ const editar = async (req,res) =>{
 
 const guardarCambios = async (req, res) =>{
     console.log('Guardando los cambios')
+
     let resultado = validationResult(req)
+
     if(!resultado.isEmpty()){
         const[categorias,precios]=await Promise.all([
             Categoria.findAll(),
@@ -177,13 +182,14 @@ const guardarCambios = async (req, res) =>{
         })
     }
     const { id } = req.params;
+
     const propiedad = await Propiedad.findByPk(id);
 
     if(!propiedad){
         return res.redirect('/mispropiedades')
     }
 
-    if(propiedad.usuarioId.toString() !== req.usuario.id.tostring()){
+    if(propiedad.usuarioId.toString() !== req.usuario.id.toString()){
         return res.redirect('/mispropiedades')
     }
 
@@ -209,8 +215,47 @@ const guardarCambios = async (req, res) =>{
 }
 
 const eliminar = async (req, res)=>{
-    console.log('Eliminandoooooo.....')
+    console.log('Eliminando Propiedad.')
+
+    const { id } = req.params;
+    const propiedad = await Propiedad.findByPk(id);
+    if(!propiedad){
+        return res.redirect('/mispropiedades')
+    }
+    if(propiedad.usuarioId.toString() !== req.usuario.id.toString()){
+        return res.redirect('/mispropiedades')
+    }
+        await unlink(`public/uploads/${propiedad.imagen}`);
+        console.log(`Se Elimino una imagen - ${propiedad.imagen}`)
+    propiedad.destroy();
+    res.redirect('/mispropiedades')
 }
+
+
+const mostrarPropiedad = async (req,res) => {
+    // console.log('Mostrando Propiedad')
+    // res.send('Mostrando Propiedad')
+
+    const { id } = req.params;
+    const propiedad = await Propiedad.findByPk(id,{
+        include: [
+            {model: Precio, as: 'precio'},
+            {model: Categoria, as: 'categoria'},
+        ],
+    })
+    if(!propiedad){
+        return res.redirect('/mispropiedades')
+    }
+    res.render('propiedades/mostrar',{
+        propiedad,
+        title: propiedad.titulo
+    })
+}
+
+
+
+
+
 
 export {
     admin,
@@ -220,5 +265,6 @@ export {
     almacenarImagen,
     editar,
     guardarCambios,
-    eliminar
+    eliminar,
+    mostrarPropiedad
 }

@@ -1,0 +1,12 @@
+header.bg-indigo-400.p-1
+    .container.mx-auto.flex.justify-between.items-center
+        .flex.items-center
+            img(src="/img/ISOLOGO.png", width="30px", height="30px", style="margin-right: 15px;")
+            h1.text-center.text-3xl.my-5.font-extrabold.text-white(class="font-sans md:font-serif")
+                | Bienes
+                span.font-normal Raíces
+        nav.my-5.text-sm.md.flex.md.items-center.gap-3.font-bold.text-white
+            a(href="/mispropiedades") Mis propiedades
+            a(href="") Mi perfil
+            form(action="/auth/cerrar-sesion" method="POST")
+                input(type="submit" value="Cerrar sesión" class="bg-indigo-800 p-2 rounded-2xl hover:cursor-pointer hover:bg-indigo-900 transition-colors")

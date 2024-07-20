@@ -1,6 +1,6 @@
 import express from 'express';
 import { body } from 'express-validator';
-import { admin, crear, guardar, agregaImagen, almacenarImagen,guardarCambios,editar, eliminar } from '../controllers/propiedadController.js'
+import { admin, crear, guardar, agregaImagen, almacenarImagen,guardarCambios,editar, eliminar, mostrarPropiedad } from '../controllers/propiedadController.js'
 import protegerRuta from '../milddleware/protegerRuta.js';
 import upload from '../milddleware/subirImagen.js';
 
@@ -32,7 +32,8 @@ router.get('/propiedades/editar/:id',
     protegerRuta,
     editar
 )
-router.get('/propiedades/editar/:id',
+
+router.post('/propiedades/editar/:id',
     protegerRuta,
     body('titulo').notEmpty().withMessage('El titulo del anuncio es obligatorio'),
     body('descripcion').notEmpty().withMessage('La Descripción no puede ir vacia').isLength({ max: 200 }).withMessage('La Descripción es muy larga'),
@@ -51,6 +52,8 @@ router.post('/propiedades/eliminar/:id',
 )
 
 
-
+router.get('/propiedad/:id',
+    mostrarPropiedad
+)
 
 export default router;

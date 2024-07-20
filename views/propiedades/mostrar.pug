@@ -1,0 +1,45 @@
+extends ../layout/app
+
+block styles
+    link(rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css")
+
+block content
+    div(class="py-1 mb-24")
+        h1(id="titulo" class="text-4xl my-10 text-center font-extrabold")= propiedad.titulo
+
+        
+
+        div(class="  flex flex-row  md:flex-row gap-4 mt-1")
+            div(class="bg-green-100 max-w-md  border border-gray-200 rounded-lg shadow")
+                img(class="rounded-t-lg" src=`/uploads/${propiedad.imagen}` alt="")
+                div(class="p-5")
+                    p(class="font-normal text-black dark:text-black")= propiedad.descripcion
+                    h2(class="text-1xl leading-6 font-bold text-gray-900 mb-5") Características
+                    div(class="grid grid-cols-1 md:grid-cols-3 gap-4")
+                        p(class="text-black font-bold text-xs") Total Baños:
+                            span(class="text-gray-800 block text-lg text-center")= propiedad.wc
+                        p(class="text-black font-bold text-xs") Habitaciones:
+                            span(class="text-gray-800 block text-lg text-center")= propiedad.habitaciones
+                        p(class="text-black font-bold text-xs") Parqueaderos:
+                            span(class="text-gray-800 block text-lg text-center")= propiedad.estacionamiento
+                    div(class="flex justify-center mt-5")
+                        div(class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800")
+                            span(class="text-sm")=$ 
+                            span(class="text-sm")=  propiedad.precio.nombre
+
+            div(class="bg-green-100 flex-grow border border-gray-200 rounded-lg shadow p-1")
+                h3(class="text-center mb-5 leading-6 text-2xl font-bold text-gray-900 p-4") Ubicación:
+                div(class="h-80 w-full")
+                    div(id="mapa" class="w-full h-full")
+                    p(id="lat" class="hidden")= propiedad.lat
+                    p(id="lng" class="hidden")= propiedad.lng
+                div(class=" grid grid-cols-2 md:grid-cols-2 gap-4 p-5")
+                    a(href="#" class="text-gray-900 font-bold text-xl") Categoría: 
+                        span(class=" text-black font-normal")= propiedad.categoria.nombre
+                    p(class="text-gray-900 font-bold text-xl") Dirección: 
+                        span(class="text-black font-normal text-lg")=  propiedad.calle
+                    
+
+block scripts
+    script(src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js")
+    script(src="/js/mostrarMapa.js")
