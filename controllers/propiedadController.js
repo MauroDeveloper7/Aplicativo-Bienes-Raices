@@ -17,7 +17,7 @@ const admin = async (req, res) => {
         ]
     })
     res.render('propiedades/admin', {
-        pagina: 'Mis propiedades',
+        title: 'Mis propiedades',
         propiedades,
         csrfToken:req.csrfToken
     })
@@ -31,7 +31,7 @@ const crear = async (req,res)=>{
         Precio.findAll()
     ])
     res.render('propiedades/crear',{
-        pagina:'Crear Propiedad',
+        title:'Crear Propiedad',
         csrfToken:req.csrfToken(),
         categorias,
         precios,
@@ -50,7 +50,7 @@ const guardar = async (req, res) =>{
             Precio.findAll()
         ])
         res.render('propiedades/crear',{
-            pagina:'Crear Propiedad',
+            title:'Crear Propiedad',
             csrfToken:req.csrfToken(),
             categorias,
             precios,
@@ -108,7 +108,7 @@ const agregaImagen = async (req, res) => {
     }
 
     res.render('propiedades/agregarImagen', {
-        pagina: `Agregar Imagen: ${propiedad.titulo}`,
+        title: `Agregar Imagen: ${propiedad.titulo}`,
         csrfToken: req.csrfToken(),
         propiedad
     });
@@ -158,7 +158,7 @@ const editar = async (req,res) =>{
         Precio.findAll()
     ])
     res.render('propiedades/editar',{
-        pagina:`Editar Propiedad: ${propiedad.titulo}`,
+        title:`Editar Propiedad: ${propiedad.titulo}`,
         csrfToken:req.csrfToken(),
         categorias,
         precios,
@@ -178,7 +178,7 @@ const guardarCambios = async (req, res) =>{
             Precio.findAll()
         ])
         return res.render('propiedades/editar',{
-            pagina:'Editar Propiedad',
+            title:'Editar Propiedad',
             csrfToken:req.csrfToken(),
             categorias,
             precios,

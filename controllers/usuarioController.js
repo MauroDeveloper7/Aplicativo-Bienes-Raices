@@ -7,23 +7,22 @@ import { emailRegistro, emailOlvidePassword } from "../helpers/email.js";
 const formularioLogin = (req, res) => {
     res.render('auth/login', {
         title:'Iniciar sesión',
-        pagina: "Inicio de Sesión",
+        title: "Inicio de Sesión",
         csrfToken: req.csrfToken
     })
 };
 
 const autenticar = async (req, res) => {
-    //console.log('autenticando....');
-      /**validando */
-    await check('email').isEmail().withMessage('ElEmail es obligatorio').run(req)
-    await check('password').notEmpty().withMessage('El password es obligatorio').run(req)
+
+    await check('email').isEmail().withMessage('El C. Electrónico es obligatorio.').run(req)
+    await check('password').notEmpty().withMessage('La contraseña es obligatoria.').run(req)
 
     let resultado = validationResult(req)
     /*****validar el resultado no este vacio*****/
     if(!resultado.isEmpty()){
         //Errores
         return res.render('auth/login', {
-            pagina: 'Iniciar Sesión',
+            title: 'Iniciar Sesión',
             csrfToken: req.csrfToken(),
             errores: resultado.array()
         })
@@ -36,7 +35,7 @@ const autenticar = async (req, res) => {
     const usuario = await Usuario.findOne({where: { email }})
     if(!usuario) {
         return res.render('auth/login', {
-            pagina: 'Iniciar Sesion',
+            title: 'Iniciar Sesion',
             csrfToken: req.csrfToken,
             errores: [{msg: 'El Usuario No Existe'}]
         })
@@ -46,7 +45,7 @@ const autenticar = async (req, res) => {
 
     if(!usuario.confirm){
         return res.render('auth/login', {
-            pagina: 'Iniciar Sesion',
+            title: 'Iniciar Sesion',
             csrfToken: req.csrfToken,
             errores: [{msg: 'El Usuario No Ha Sido Confirmado'}]
         })
@@ -55,9 +54,9 @@ const autenticar = async (req, res) => {
     /**Revisar el Password*/
     if(!usuario.verificarPassword(password)){
         return res.render('auth/login', {
-            pagina: 'Iniciar Sesion',
+            title: 'Iniciar Sesion',
             csrfToken: req.csrfToken,
-            errores: [{msg: 'El Password es Incorrecto'}]
+            errores: [{msg: 'La contraseña es Incorrecto'}]
         })
     }
 
@@ -81,20 +80,20 @@ const autenticar = async (req, res) => {
 
     }).redirect('/mispropiedades')
 }
+
 const formularioRegistro = (req, res) => {
     res.render('auth/registro', {
         title:'Crear Cuenta',
-        pagina: 'Crear Cuenta',
+        title: 'Crear Cuenta',
         csrfToken: req.csrfToken
     })
 };
 
 const registrar = async (req, res) => {
-    // console.log('Registrando...');
     //Validar Campos
-    await check('name').notEmpty().withMessage('Nombre Obligatorio!').run(req);
-    await check('lastname').notEmpty().withMessage('Apellido Obligatorio!').run(req);
-    await check('email').isEmail().withMessage('No tiene formato de correo!').run(req);
+    await check('name').notEmpty().withMessage('El Nombre es obligatorio!').run(req);
+    await check('lastname').notEmpty().withMessage('El Apellido Obligatorio!').run(req);
+    await check('email').isEmail().withMessage('El C. Electrónico ingresado no tiene formato de correo!').run(req);
     await check('password').isLength({ min: 8 }).withMessage('El Mínimo para la contraseña es de (8) Caracteres!').run(req);
     await check('repetir_password').equals(req.body.password).withMessage('Las contraseñas no son iguales!').run(req);
 
@@ -103,7 +102,7 @@ const registrar = async (req, res) => {
     //verificar que el resultado este vacio
     if (!resultado.isEmpty()) {
         return res.render('auth/registro', {
-            pagina: 'Crear Cuenta',
+            title: 'Crear Cuenta',
             csrfToken: req.csrfToken,
             errores: resultado.array()
         })
@@ -114,7 +113,7 @@ const registrar = async (req, res) => {
     const existeUsuario = await Usuario.findOne({ where: { email } })
     if (existeUsuario) {
         return res.render('auth/registro', {
-            pagina: 'Crear Cuenta',
+            title: 'Crear Cuenta',
             csrfToken: req.csrfToken,
             errores: [{ msg: 'El Usuario Ya Existe! ' }]
         })
@@ -138,7 +137,7 @@ const registrar = async (req, res) => {
 
     //Mensaje de confirmación cuando se crea el Usuario
     res.render('templates/mensaje', {
-        pagina: 'Su registro fue exitoso!',
+        title: 'Registro exitoso!',
         mensaje: 'Se ha enviado un correo de confirmación, presione en el enlace'
     })
 
@@ -153,8 +152,8 @@ const confirmar = async (req, res) => {
 
     if (!usuario) {
         return res.render('auth/confirmarcuenta', {
-            pagina: 'Error al confirmar cuenta',
-            mensaje: 'Hubo un error en la confirmación de la cuenta, intente de nuevo',
+            title: 'Error al confirmar cuenta',
+            mensaje: 'Hubo un error en la confirmación de la cuenta, intente de nuevo.',
             error: true
         })
     }
@@ -165,7 +164,7 @@ const confirmar = async (req, res) => {
 
     res.render('auth/confirmarcuenta', {
         title:'Confirmación de cuenta',
-        pagina: 'Cuenta Confirmada!',
+        title: 'Cuenta Confirmada!',
         mensaje: 'Su cuenta se confirmo correctamente!'
     })
 }
@@ -173,28 +172,27 @@ const confirmar = async (req, res) => {
 const formularioOlvidePassword = (req, res) => {
     res.render('auth/olvide-password', {
         title: 'Recuperar Contraseña',
-        pagina: 'Recuperar Contraseña',
+        title: 'Recuperar Contraseña',
         csrfToken: req.csrfToken
     })
 };
 
 const recuperaPassword = (req, res) => {
     res.render('auth/olvide-password', {
-        pagina: 'Recuperar Password',
+        title: 'Recuperar Contraseña',
         csrfToken: req.csrfToken
     })
 };
 
 
 const resetPassword = async (req, res) => {
-    await check('email').isEmail().withMessage('No tiene formato de correo').run(req);
+    await check('email').isEmail().withMessage('El C. Electrónico ingresado no tiene formato de correo!').run(req);
     let resultado = validationResult(req);
 
     //verificar que el resultado este vacio
     if (!resultado.isEmpty()) {
         return res.render('auth/olvide-password', {
             title:'Recuperar contraseña',
-            pagina: 'Recuperar Contraseña',
             csrfToken: req.csrfToken,
             errores: resultado.array()
         })
@@ -209,7 +207,6 @@ const resetPassword = async (req, res) => {
     if (!usuario) {
         return res.render('auth/olvide-password', {
             title:'Recuperar contraseña',
-            pagina: 'Recuperar Contraseña',
             csrfToken: req.csrfToken,
             errores: [{ msg: "El email ingresado no pertenece a ningún usuario!" }]
         })
@@ -231,7 +228,7 @@ const resetPassword = async (req, res) => {
 
     res.render("templates/mensaje", {
         title:'Recuperar contraseña',
-        pagina: "Envío de mensaje exitoso!",
+        title: "Envío de mensaje exitoso!",
         mensaje: "Al correo se han enviado las instrucciones a seguir."
 
     })
@@ -245,7 +242,7 @@ const comprobarToken = async (req, res) => {
 
     if (!usuario) {
         return res.render("auth/confirmarcuenta", {
-            pagina: "Restablece su contraseña",
+            title: "Restablece su contraseña",
             mensaje: "Hubo un error al validar su información, intente de nuevo",
             error: true
 
@@ -253,7 +250,7 @@ const comprobarToken = async (req, res) => {
     }
 
     res.render("auth/reset-Password", {
-        pagina: "restablecer password",
+        title: "restablecer password",
         csrfToken: req.csrfToken
 
 
@@ -268,7 +265,7 @@ const nuevoPassword = async (req, res) => {
 
     if (!resultado.isEmpty()) {
         return res.render('auth/reset-Password', {
-            pagina: 'Restablecer Password',
+            title: 'Restablecer Password',
             csrfToken: req.csrfToken,
             errores: resultado.array()
         })
@@ -289,7 +286,7 @@ const nuevoPassword = async (req, res) => {
     await usuario.save();
 
     res.render("auth/confirmarcuenta", {
-        pagina: "Password restablecido",
+        title: "Password restablecido",
         mensaje: " El password se guardo correctamente"
 
     })
