@@ -23,7 +23,7 @@ const autenticar = async (req, res) => {
         //Errores
         return res.render('auth/login', {
             title: 'Iniciar Sesión',
-            csrfToken: req.csrfToken(),
+            csrfToken: req.csrfToken,
             errores: resultado.array()
         })
     }

@@ -6,7 +6,20 @@ header.bg-indigo-400.p-1
                 | Bienes
                 span.font-normal Raíces
         nav.my-5.text-sm.md.flex.md.items-center.gap-3.font-bold.text-white
-            a(href="/mispropiedades") Mis propiedades
-            a(href="") Mi perfil
-            form(action="/auth/cerrar-sesion" method="POST")
-                input(type="submit" value="Cerrar sesión" class="bg-indigo-800 p-2 rounded-2xl hover:cursor-pointer hover:bg-indigo-900 transition-colors")
+            a(href="/auth/registro") Crear Cuenta
+            a(href="/auth/login") Iniciar Sesión
+            
+div(class="bg-indigo-700 py-5 hidden lg:block")
+    div(class="container mx-auto flex justify-between")
+        nav(class="flex gap-5 items-center")
+            a(href="/categorias/1" class="text-sm font-bold text-white hover:bg-indigo-800 p-2 transition-colors rounded-full") Casas
+            a(href="/categorias/2" class="text-sm font-bold text-white hover:bg-indigo-800 p-2 transition-colors rounded-full") Apartamentos
+            a(href="/categorias/3" class="text-sm font-bold text-white hover:bg-indigo-800 p-2 transition-colors rounded-full") Bodegas
+            a(href="/categorias/4" class="text-sm font-bold text-white hover:bg-indigo-800 p-2 transition-colors rounded-full") Terrenos
+            a(href="/categorias/5" class="text-sm font-bold text-white hover:bg-indigo-800 p-2 transition-colors rounded-full") Cabañas
+
+        form(action="/buscador" method="POST" class="flex gap-3 items-center")
+            input(type="hidden" name="_csrf" value= csrfToken)
+            label(for="termino" class="text-sm uppercase font-bold text-white") Búsqueda         
+            input(type="text" name="termino" id="termino" placeholder="Buscar" class="flex-1 w-full py-2 px-3 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 text-sm")
+            input(type="submit" value="Buscar" class="bg-indigo-600 py-2 px-5 rounded-full font-bold text-sm text-white hover:bg-indigo-800 transition-colors cursor-pointer")
