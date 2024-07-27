@@ -38,7 +38,29 @@ block content
                         span(class=" text-black font-normal")= propiedad.categoria.nombre
                     p(class="text-gray-900 font-bold text-xl") Dirección: 
                         span(class="text-black font-normal text-lg")=  propiedad.calle
-                    
+            
+                if !esVendedor
+                    h3(class="text-2xl text-center my-10 font-extrabold text-gray-900") Vendedor
+                    if enviado 
+                        p(class="p-2 text-center bg-green-100 text-green-950 uppercase font-semibold")  Mensaje enviado Correctamente!
+
+                    else if usuario 
+                        if errores
+                            div(class="max-w-md mx-auto my-10")
+                                each error in errores
+                                    p.bg-red-200.text-red-900.rounded-lg.text-sm.text-center.font-bold.p-3.mb-1=error.msg
+
+                        form(method="POST")
+                            input(type="hidden" name="_csrf" value= csrfToken)
+                            div(class="space-y-5")
+                                label(for="mensaje" class="text-gray-600 font-bold text-xs") Mensaje
+                                textarea(name="mensaje" id="mensaje" placeholder="Escribe aquí el mensaje para el vendedor" class="w-full p-2 border border-gray-300 rounded-lg shadow placeholder-gray-400")
+                                input(type="submit" value="Enviar" class="w-full bg-indigo-600 py-2 px-5 rounded-full font-bold text-sm text-white hover:bg-indigo-800 transition-colors cursor-pointer")
+                    else
+                        div(class="flex justify-center gap-2")
+                            p(class="text-sm p-2 text-center bg-green-100 text-green-950 uppercase font-semibold") Si quieres contactar al vendedor
+                            a(href="/auth/registro" class="p-2 text-indigo-700 underline font-bold text-sm uppercase cursor-pointer hover:text-indigo-900") Debes Crear Una Cuenta
+
 
 block scripts
     script(src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js")

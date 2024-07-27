@@ -7,6 +7,7 @@ header.bg-indigo-400.p-4
                 span.font-normal Raíces
         nav.my-5.text-sm.md.flex.md.items-center.gap-3.font-bold.text-white
             a(href="/mispropiedades") Mis propiedades
-            a(href="") Mi perfil
+            a(href="/") Inicio
             form(action="/auth/cerrar-sesion" method="POST")
+                input(type="hidden" name="_csrf" value=csrfToken)
                 input(type="submit" value="Cerrar sesión" class="bg-indigo-800 p-2 rounded-2xl hover:cursor-pointer hover:bg-indigo-900 transition-colors")

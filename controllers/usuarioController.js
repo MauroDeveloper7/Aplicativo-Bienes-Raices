@@ -8,7 +8,7 @@ const formularioLogin = (req, res) => {
     res.render('auth/login', {
         title:'Iniciar sesión',
         title: "Inicio de Sesión",
-        csrfToken: req.csrfToken
+        csrfToken: req.csrfToken()
     })
 };
 
@@ -23,7 +23,7 @@ const autenticar = async (req, res) => {
         //Errores
         return res.render('auth/login', {
             title: 'Iniciar Sesión',
-            csrfToken: req.csrfToken,
+            csrfToken: req.csrfToken(),
             errores: resultado.array()
         })
     }
@@ -36,7 +36,7 @@ const autenticar = async (req, res) => {
     if(!usuario) {
         return res.render('auth/login', {
             title: 'Iniciar Sesion',
-            csrfToken: req.csrfToken,
+            csrfToken: req.csrfToken(),
             errores: [{msg: 'El Usuario No Existe'}]
         })
     }
@@ -46,7 +46,7 @@ const autenticar = async (req, res) => {
     if(!usuario.confirm){
         return res.render('auth/login', {
             title: 'Iniciar Sesion',
-            csrfToken: req.csrfToken,
+            csrfToken: req.csrfToken(),
             errores: [{msg: 'El Usuario No Ha Sido Confirmado'}]
         })
     }
@@ -55,7 +55,7 @@ const autenticar = async (req, res) => {
     if(!usuario.verificarPassword(password)){
         return res.render('auth/login', {
             title: 'Iniciar Sesion',
-            csrfToken: req.csrfToken,
+            csrfToken: req.csrfToken(),
             errores: [{msg: 'La contraseña es Incorrecto'}]
         })
     }
@@ -85,7 +85,7 @@ const formularioRegistro = (req, res) => {
     res.render('auth/registro', {
         title:'Crear Cuenta',
         title: 'Crear Cuenta',
-        csrfToken: req.csrfToken
+        csrfToken: req.csrfToken()
     })
 };
 
@@ -103,7 +103,7 @@ const registrar = async (req, res) => {
     if (!resultado.isEmpty()) {
         return res.render('auth/registro', {
             title: 'Crear Cuenta',
-            csrfToken: req.csrfToken,
+            csrfToken: req.csrfToken(),
             errores: resultado.array()
         })
     }
@@ -114,7 +114,7 @@ const registrar = async (req, res) => {
     if (existeUsuario) {
         return res.render('auth/registro', {
             title: 'Crear Cuenta',
-            csrfToken: req.csrfToken,
+            csrfToken: req.csrfToken(),
             errores: [{ msg: 'El Usuario Ya Existe! ' }]
         })
     }
@@ -172,14 +172,14 @@ const formularioOlvidePassword = (req, res) => {
     res.render('auth/olvide-password', {
         title: 'Recuperar Contraseña',
         title: 'Recuperar Contraseña',
-        csrfToken: req.csrfToken
+        csrfToken: req.csrfToken()
     })
 };
 
 const recuperaPassword = (req, res) => {
     res.render('auth/olvide-password', {
         title: 'Recuperar Contraseña',
-        csrfToken: req.csrfToken
+        csrfToken: req.csrfToken()
     })
 };
 
@@ -191,7 +191,7 @@ const resetPassword = async (req, res) => {
     if (!resultado.isEmpty()) {
         return res.render('auth/olvide-password', {
             title:'Recuperar contraseña',
-            csrfToken: req.csrfToken,
+            csrfToken: req.csrfToken(),
             errores: resultado.array()
         })
     }
@@ -205,7 +205,7 @@ const resetPassword = async (req, res) => {
     if (!usuario) {
         return res.render('auth/olvide-password', {
             title:'Recuperar contraseña',
-            csrfToken: req.csrfToken,
+            csrfToken: req.csrfToken(),
             errores: [{ msg: "El email ingresado no pertenece a ningún usuario!" }]
         })
     }
@@ -249,7 +249,7 @@ const comprobarToken = async (req, res) => {
 
     res.render("auth/reset-Password", {
         title: "restablecer password",
-        csrfToken: req.csrfToken
+        csrfToken: req.csrfToken()
 
 
     })
@@ -265,7 +265,7 @@ const nuevoPassword = async (req, res) => {
     if (!resultado.isEmpty()) {
         return res.render('auth/reset-Password', {
             title: 'Restablecer Password',
-            csrfToken: req.csrfToken,
+            csrfToken: req.csrfToken(),
             errores: resultado.array()
         })
     }

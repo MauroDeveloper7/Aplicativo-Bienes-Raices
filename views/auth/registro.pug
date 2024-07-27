@@ -18,20 +18,20 @@ block content
                     div(class="flex flex-wrap -mx-3")
                         div(class="w-full md:w-1/2 px-3 mb-6")
                             label.block.text-sm.uppercase.text-neutral-950.mb-1.font-bold(for="name") Nombre
-                            input#name.w-full.py-2.px-3.placeholder-gray-700.rounded-lg(placeholder="Ingresa tu Nombre" class="bg-input" name="name" type="text" value= usuario ? usuario.name : '')
+                            input#name.w-full.py-2.px-3.placeholder-gray-700.rounded-lg(placeholder="Ingresa tu Nombre" class="bg-input" name="name" type="text" value=(usuario && usuario.name) ? usuario.name : '')
                         div(class="w-full md:w-1/2 px-3 mb-6")
                             label.block.text-sm.uppercase.text-neutral-950.mb-1.font-bold(for="lastname") Apellido
-                            input#lastname.w-full.py-2.px-3.placeholder-gray-700.rounded-lg(placeholder="Ingresa tu Apellido" class="bg-input" name="lastname" type="text" value= usuario ? usuario.lastname : '')
+                            input#lastname.w-full.py-2.px-3.placeholder-gray-700.rounded-lg(placeholder="Ingresa tu Apellido" class="bg-input" name="lastname" type="text" value=(usuario && usuario.lastname) ? usuario.lastname : '')
                     div.mb-6
                         label.block.text-sm.uppercase.text-neutral-950.mb-1.font-bold(for="email") Correo Electrónico
-                        input#email.w-full.py-2.px-3.placeholder-gray-700.rounded-lg( placeholder="Ingresa tu Correo Electrónico" class="bg-input"  name="email" type="email" value= usuario ? usuario.email : '')
+                        input#email.w-full.py-2.px-3.placeholder-gray-700.rounded-lg(placeholder="Ingresa tu Correo Electrónico" class="bg-input" name="email" type="email" value=(usuario && usuario.email) ? usuario.email : '')
                     div.mb-6
                         label.block.text-sm.uppercase.text-neutral-950.mb-1.font-bold(for="password") Contraseña
-                        input#password.w-full.py-2.px-3.placeholder-gray-700.rounded-lg(placeholder="Ingresa tu Contraseña " class="bg-input"  name="password" type="password")
+                        input#password.w-full.py-2.px-3.placeholder-gray-700.rounded-lg(placeholder="Ingresa tu Contraseña" class="bg-input" name="password" type="password")
                     div.mb-6
                         label.block.text-sm.uppercase.text-neutral-950.mb-1.font-bold(for="repetir_password") Repetir contraseña
-                        input#repetir_password.w-full.py-2.px-3.placeholder-gray-700.rounded-lg(placeholder="Repetite la contraseña " class="bg-input" name="repetir_password" type="password")
+                        input#repetir_password.w-full.py-2.px-3.placeholder-gray-700.rounded-lg(placeholder="Repetite la contraseña" class="bg-input" name="repetir_password" type="password")
                     input(class="w-full bg-boton hover:bg-boton_2 text-black hover:text-white font-bold py-3 cursor-pointer uppercase text-sm rounded-md" type="submit" value="Registro")
                     .flex.items-center.justify-between.mt-5
                         a.text-neutral-950.text-xs(href="/auth/login") ¿Ya estás registrado? Iniciar Sesión
-                        a.text-neutral-950.text-xs(href="/auth/olvide-password") ¿Olvidaste tu contraseña? 
+                        a.text-neutral-950.text-xs(href="/auth/olvide-password") ¿Olvidaste tu contraseña?
