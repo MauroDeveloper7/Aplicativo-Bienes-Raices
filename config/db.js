@@ -10,6 +10,12 @@ const db = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.D
     define: {
         timestamps: true,
     },
+    pool: {
+        max: 5, // Número máximo de conexiones en el pool
+        min: 0, // Número mínimo de conexiones en el pool
+        acquire: 30000, // Tiempo máximo en milisegundos que el pool intentará adquirir una conexión antes de lanzar un error
+        idle: 10000, // Tiempo máximo en milisegundos que una conexión puede estar inactiva antes de ser liberada
+    },
 });
 
 try {
