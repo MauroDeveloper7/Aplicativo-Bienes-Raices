@@ -6,7 +6,7 @@ const usuarios = [
         lastname:"Duque Aricapa",
 		email: "Mauricio@m.com",
 		confirm: 1,
-		password: bcrypt.hashSync("contrasena", 10),
+		password: bcryptjs.hashSync("contrasena", 10),
 	},
 	// Add other users if needed
 ];
