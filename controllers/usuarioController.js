@@ -278,8 +278,8 @@ const nuevoPassword = async (req, res) => {
     const usuario = await Usuario.findOne({ where: { token } })
 
     //hashear el nuevo password
-    const salt = await bcrypt.genSalt(10)
-    usuario.password = await bcrypt.hash(password, salt);
+    const salt = await bcryptjs.genSalt(10)
+    usuario.password = await bcryptjs.hash(password, salt);
     usuario.token = null;
 
     await usuario.save();
